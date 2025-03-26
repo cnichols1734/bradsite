@@ -1,0 +1,7 @@
+Required assets for the website:
+
+1. hero-bg.mp4 - A gaming background video for the hero section
+2. profile.jpg - Brad's profile picture for the About section
+3. gallery1.jpg through gallery8.jpg - Gaming screenshots for the gallery section
+
+You can replace these with actual gaming screenshots, profile photos, and background videos.
