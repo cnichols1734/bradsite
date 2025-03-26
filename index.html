@@ -52,7 +52,16 @@
         /* Ensure all media elements have full opacity */
         img, video, iframe {
             opacity: 1 !important;
-            background-color: transparent !important;
+            background-color: #000 !important;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Make sure containers for media have solid backgrounds */
+        .aspect-square, .relative.pb-\[56\.25\%\] {
+            background-color: #000 !important;
+            position: relative;
+            z-index: 1;
         }
         
         /* Custom button styles */
@@ -142,6 +151,17 @@
         
         .glow-red {
             box-shadow: 0 0 10px #dc2626, 0 0 20px #dc2626;
+        }
+
+        /* Ensure sections are above particles */
+        section {
+            position: relative;
+            z-index: 5;
+        }
+        
+        /* Sections with bg-neutral-800 should have solid background */
+        section.bg-neutral-800 {
+            background-color: #262626 !important;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -512,7 +532,7 @@
     </div>
 
     <!-- Particles.js -->
-    <div id="particles-js" class="fixed inset-0 pointer-events-none"></div>
+    <div id="particles-js" class="fixed inset-0 pointer-events-none -z-10"></div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
