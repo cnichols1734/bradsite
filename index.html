@@ -630,23 +630,23 @@
             // Particles.js initialization
             particlesJS('particles-js', {
                 particles: {
-                    number: { value: 120, density: { enable: true, value_area: 800 } },
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
                     color: { value: ['#00BFFF', '#9900FF', '#FF0055'] },
                     shape: { type: 'circle' },
-                    opacity: { value: 0.8, random: false },
-                    size: { value: 4, random: true },
+                    opacity: { value: 0.6, random: false },
+                    size: { value: 3, random: true },
                     line_linked: {
                         enable: true,
-                        distance: 150,
+                        distance: 180,
                         color: '#00BFFF',
-                        opacity: 0.6,
-                        width: 1.5
+                        opacity: 0.4,
+                        width: 1
                     },
                     move: {
                         enable: true,
-                        speed: 2,
+                        speed: 0.5,
                         direction: 'none',
-                        random: true,
+                        random: false,
                         straight: false,
                         out_mode: 'out',
                         bounce: false
@@ -660,8 +660,8 @@
                         resize: true
                     },
                     modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
-                        push: { particles_nb: 4 }
+                        grab: { distance: 140, line_linked: { opacity: 0.8 } },
+                        push: { particles_nb: 2 }
                     }
                 },
                 retina_detect: true
