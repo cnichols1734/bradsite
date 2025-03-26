@@ -156,12 +156,13 @@
         /* Ensure sections are above particles */
         section {
             position: relative;
-            z-index: 5;
+            z-index: 1;
         }
         
-        /* Sections with bg-neutral-800 should have solid background */
+        /* Sections with bg-neutral-800 should have semi-transparent background */
         section.bg-neutral-800 {
-            background-color: #262626 !important;
+            background-color: rgba(38, 38, 38, 0.6) !important;
+            backdrop-filter: blur(5px);
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -173,10 +174,8 @@
     <!-- Hero Section with Video Background -->
     <div class="relative h-screen">
         <div class="absolute inset-0 z-0 overflow-hidden">
-            <video class="absolute min-w-full min-h-full object-cover" autoplay loop muted playsinline>
-                <source src="assets/hero-bg.mp4" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Removed video background to let particles show through -->
+            <div class="absolute inset-0 bg-black bg-opacity-20"></div>
         </div>
 
         <!-- Navigation -->
@@ -317,16 +316,16 @@
     </section>
 
     <!-- Live Streams Section -->
-    <section id="streams" class="py-20 px-6 bg-neutral-800">
+    <section id="streams" class="py-20 px-6 bg-transparent">
         <div class="max-w-7xl mx-auto">
-            <div class="flex items-center mb-12">
+            <div class="flex items-center mb-12 bg-black bg-opacity-50 p-4 rounded-lg inline-block">
                 <div class="h-1 bg-gradient-to-r from-purple-500 to-cyan-500 w-20 mr-4"></div>
                 <h2 class="text-4xl font-orbitron font-bold">Live Streams</h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 <div class="lg:col-span-2">
-                    <div class="relative pb-[56.25%] h-0 bg-neutral-900 rounded-lg overflow-hidden">
+                    <div class="relative pb-[56.25%] h-0 bg-black bg-opacity-70 rounded-lg overflow-hidden">
                         <iframe class="absolute top-0 left-0 w-full h-full opacity-100" 
                             src="https://www.youtube.com/embed/UaiYz2VzGbM" 
                             title="YouTube video player" 
@@ -337,7 +336,7 @@
                 </div>
                 
                 <div class="space-y-6">
-                    <div class="bg-neutral-900 rounded-lg p-6">
+                    <div class="bg-black bg-opacity-70 rounded-lg p-6">
                         <h3 class="text-2xl font-orbitron font-bold mb-4">Stream Schedule</h3>
                         <div class="space-y-4">
                             <div class="flex justify-between">
@@ -359,7 +358,7 @@
                         </div>
                     </div>
                     
-                    <div class="bg-neutral-900 rounded-lg p-6">
+                    <div class="bg-black bg-opacity-70 rounded-lg p-6">
                         <h3 class="text-2xl font-orbitron font-bold mb-4">Follow Me</h3>
                         <div class="flex space-x-4">
                             <a href="#" class="text-3xl text-red-600 hover:text-red-400 transition-colors">
@@ -422,18 +421,18 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-6 bg-neutral-800">
+    <section id="about" class="py-20 px-6 bg-transparent">
         <div class="max-w-7xl mx-auto">
-            <div class="flex items-center mb-12">
+            <div class="flex items-center mb-12 bg-black bg-opacity-50 p-4 rounded-lg inline-block">
                 <div class="h-1 bg-gradient-to-r from-red-500 to-yellow-500 w-20 mr-4"></div>
                 <h2 class="text-4xl font-orbitron font-bold">About Knowmsayin</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
+                <div class="bg-black bg-opacity-70 p-4 rounded-lg">
                     <img src="assets/Gemini_Generated_Image_vt3cxnvt3cxnvt3c.jpeg" alt="Knowmsayin" class="rounded-lg w-full shadow-lg object-cover bg-opacity-100">
                 </div>
-                <div>
+                <div class="bg-black bg-opacity-70 p-6 rounded-lg">
                     <h3 class="text-3xl font-orbitron font-bold mb-4">The Gamer Behind the Tag</h3>
                     <p class="text-lg mb-6">
                         What's up gamers! I'm Brad, better known as Knowmsayin in the gaming world. I've been gaming since I could hold a controller, and I've turned my passion into something I share with all of you.
@@ -532,7 +531,7 @@
     </div>
 
     <!-- Particles.js -->
-    <div id="particles-js" class="fixed inset-0 pointer-events-none -z-10"></div>
+    <div id="particles-js" class="fixed inset-0 pointer-events-none z-0"></div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -631,17 +630,17 @@
             // Particles.js initialization
             particlesJS('particles-js', {
                 particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#00BFF', '#9900FF', '#FF0055'] },
+                    number: { value: 120, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#00BFFF', '#9900FF', '#FF0055'] },
                     shape: { type: 'circle' },
-                    opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
+                    opacity: { value: 0.8, random: false },
+                    size: { value: 4, random: true },
                     line_linked: {
                         enable: true,
                         distance: 150,
                         color: '#00BFFF',
-                        opacity: 0.4,
-                        width: 1
+                        opacity: 0.6,
+                        width: 1.5
                     },
                     move: {
                         enable: true,
