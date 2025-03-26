@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>KNOWMSAYIN | Gaming Zone</title>
     <!-- TailwindCSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,6 +63,11 @@
             z-index: -1;
             overflow: hidden;
             pointer-events: none;
+            will-change: transform; /* Helps with mobile rendering */
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            /* Fallback gradient if video fails */
+            background: linear-gradient(135deg, #0f0f1a, #1a1a30, #252540);
         }
         
         .video-background video {
@@ -74,15 +80,21 @@
             height: auto;
             transform: translateX(-50%) translateY(-50%);
             object-fit: cover;
+            /* Add mobile-specific optimizations */
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         
-        .video-overlay {
+        .video-background::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background-color: rgba(0, 0, 0, 0.6);
+            pointer-events: none;
         }
         
         /* Section backgrounds */
@@ -193,10 +205,9 @@
 <body class="bg-neutral-900 text-white font-rajdhani relative">
     <!-- Video Background -->
     <div class="video-background">
-        <video autoplay loop muted playsinline>
+        <video autoplay loop muted playsinline webkit-playsinline x5-playsinline disablePictureInPicture>
             <source src="assets/hero-bg.mp4" type="video/mp4">
         </video>
-        <div class="video-overlay"></div>
     </div>
 
     <!-- Main Content -->
@@ -566,15 +577,59 @@
     <!-- Inline JS instead of external file -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Preload video
+            // Improved video background handling for mobile
             const video = document.querySelector('.video-background video');
+            
             if (video) {
+                // Force video play on mobile
                 video.load();
-                video.play().catch(e => {
-                    console.log('Auto-play was prevented. This is normal on mobile devices.', e);
+                
+                const playVideo = () => {
+                    video.play().catch(e => {
+                        console.log('Auto-play was prevented:', e);
+                    });
+                };
+                
+                playVideo();
+                
+                // Reinforce video playback on scroll (mobile issue)
+                let scrollTimeout;
+                window.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    
+                    // Make sure video is visible during scroll
+                    document.querySelector('.video-background').style.display = 'block';
+                    
+                    // This helps reinitialize video playback after scroll stops
+                    scrollTimeout = setTimeout(() => {
+                        if (video.paused) {
+                            playVideo();
+                        }
+                    }, 200);
+                }, { passive: true });
+                
+                // Handle visibility changes (when user switches tabs or apps)
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible') {
+                        playVideo();
+                    }
                 });
+                
+                // Additional mobile-specific handlers
+                if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    // Force hardware acceleration
+                    document.querySelector('.video-background').style.transform = 'translate3d(0,0,0)';
+                    
+                    // Add touchmove handler to prevent background disappearing
+                    document.addEventListener('touchmove', () => {
+                        document.querySelector('.video-background').style.display = 'block';
+                    }, { passive: true });
+                    
+                    // Check orientation change
+                    window.addEventListener('orientationchange', playVideo);
+                }
             }
-
+            
             // Mobile Menu Toggle
             const menuToggle = document.getElementById('menu-toggle');
             const menuClose = document.getElementById('menu-close');
