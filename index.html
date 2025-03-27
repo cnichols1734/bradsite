@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KNOWMSAYIN | Gaming Zone</title>
     <!-- TailwindCSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,12 +37,21 @@
         /* Custom styles that can't be handled by Tailwind CDN */
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            position: relative; /* Required for iOS */
+            width: 100%; /* Ensure full width */
         }
         
         body {
             background-color: #171717;
             color: white;
             font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            position: relative; /* Required for iOS */
+            width: 100%; /* Ensure full width */
+            overscroll-behavior-x: none; /* Prevent bounce on modern browsers */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            touch-action: pan-y; /* Only allow vertical touch actions */
         }
         
         h1, h2, h3, h4, h5, h6 {
